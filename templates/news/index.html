@@ -1,0 +1,610 @@
+{% extends 'news/base.html' %}
+{% load static %}
+{% block content %}
+       
+    <!-- Preloader Start -->
+    <!-- <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="{% static 'assets/img/logo/logo.png' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- Preloader Start -->
+
+   
+
+    <main>
+    <!-- Trending Area Start -->
+    <div class="trending-area fix">
+        <div class="container">
+            <div class="trending-main">
+                <!-- Trending Tittle -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="trending-tittle">
+                            <strong>Trending now</strong>
+                            <!-- <p>Rem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
+                            <div class="trending-animated">
+                                <ul id="js-news" class="js-hidden">
+                                    {% for news in latest_news|slice:":5" %}
+                                    <li class="news-item">{{ news.title }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <!-- Trending Top -->
+                        <style>
+                            .trend-top-img {
+                                position: relative;
+                                overflow: hidden;
+                                border-radius: 8px;
+                                height: 400px;
+                                background: #f4f4f4;
+                                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                            }
+                            .trend-top-img img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                transition: transform 0.5s ease;
+                                image-rendering: -webkit-optimize-contrast;
+                            }
+                            .trend-top-img:hover img {
+                                transform: scale(1.03);
+                            }
+                            .trend-top-cap {
+                                background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+                                width: 100%;
+                                padding: 30px;
+                                position: absolute;
+                                bottom: 0;
+                            }
+                            .trend-bottom-img {
+                                height: 180px;
+                                overflow: hidden;
+                                border-radius: 6px;
+                            }
+                            .trend-bottom-img img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                image-rendering: -webkit-optimize-contrast;
+                            }
+                            .single-bottom {
+                                margin-bottom: 60px !important;
+                                transition: transform 0.3s ease;
+                            }
+                            .single-bottom:hover {
+                                transform: translateY(-5px);
+                            }
+                            .trend-bottom-img {
+                                margin-bottom: 30px !important;
+                            }
+                            .color1 {
+                                display: inline-block;
+                                padding: 3px 12px;
+                                background: #fdf0f0;
+                                color: #ff2143;
+                                border-radius: 4px;
+                                font-size: 11px;
+                                font-weight: 600;
+                                text-transform: uppercase;
+                                margin-bottom: 12px;
+                            }
+                        </style>
+                        <div class="trending-top-active mb-30">
+                            {% for news in featured_news %}
+                            <div class="trending-top">
+                                <div class="trend-top-img">
+                                    <img src="{{ news.image.url }}" alt="{{ news.title }}">
+                                    <div class="trend-top-cap">
+                                        <span>{{ news.category.name }}</span>
+                                        <h2><a href="{{ news.get_obsolute_url }}" style="color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">{{ news.title }}</a></h2>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!-- Trending Bottom -->
+                        <div class="trending-bottom">
+                            <div class="row">
+                                {% for news in category_news1 %}
+                                <div class="col-lg-4">
+                                <div class="single-bottom">
+                                    <div class="trend-bottom-img">
+                                        <img src="{{ news.image.url }}" alt="{{ news.title }}">
+                                    </div>
+                                    <div class="trend-bottom-cap">
+                                        <span class="color1">{{ news.category.name }}</span>
+                                        <h4 style="font-size: 16px; margin-top: 10px;"><a href="{% url 'news_detail_page' news.pk %}">{{ news.title | truncatewords:10 }}</a></h4>
+                                    </div>
+                                </div>
+                                </div>
+                                {% endfor %}
+                                {% for news in category_news2 %}
+                                <div class="col-lg-4">
+                                <div class="single-bottom">
+                                    <div class="trend-bottom-img">
+                                        <img src="{{ news.image.url }}" alt="{{ news.title }}">
+                                    </div>
+                                    <div class="trend-bottom-cap">
+                                        <span class="color1">{{ news.category.name }}</span>
+                                        <h4 style="font-size: 16px; margin-top: 10px;"><a href="{% url 'news_detail_page' news.pk %}">{{ news.title | truncatewords:10 }}</a></h4>
+                                    </div>
+                                </div>
+                                </div>
+                                {% endfor %}
+                                {% for news in category_news3 %}
+                                <div class="col-lg-4">
+                                <div class="single-bottom">
+                                    <div class="trend-bottom-img">
+                                        <img src="{{ news.image.url }}" alt="{{ news.title }}">
+                                    </div>
+                                    <div class="trend-bottom-cap">
+                                        <span class="color1">{{ news.category.name }}</span>
+                                        <h4 style="font-size: 16px; margin-top: 10px;"><a href="{% url 'news_detail_page' news.pk %}">{{ news.title | truncatewords:10 }}</a></h4>
+                                    </div>
+                                </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right content -->
+                    <div class="col-lg-4">
+                        <style>
+                            .right-news-scroll {
+                                max-height: 720px;
+                                overflow-y: auto;
+                                overflow-x: hidden;
+                                padding-right: 10px;
+                            }
+                            .right-news-scroll::-webkit-scrollbar {
+                                width: 4px;
+                            }
+                            .right-news-scroll::-webkit-scrollbar-track {
+                                background: #f1f1f1; 
+                            }
+                            .right-news-scroll::-webkit-scrollbar-thumb {
+                                background: #888; 
+                                border-radius: 10px;
+                            }
+                            .trand-right-single {
+                                margin-bottom: 20px;
+                                transition: transform 0.2s;
+                            }
+                            .trand-right-single:hover {
+                                transform: translateX(5px);
+                            }
+                            .trand-right-img img {
+                                width: 100px;
+                                height: 80px;
+                                object-fit: cover;
+                                border-radius: 5px;
+                                margin-right: 15px;
+                                image-rendering: -webkit-optimize-contrast;
+                            }
+                        </style>
+                        <div class="right-news-scroll">
+                        {% for i in latest_news %}    
+                        <div class="trand-right-single d-flex">
+                            <div class="trand-right-img">
+                                <img src="{{ i.image.url }}" alt="{{ i.title }}">
+                            </div>
+                            <div class="trand-right-cap">
+                                <span class="color1">{{ i.category.name }}</span>
+                                <h4 style="font-size: 15px;"><a href="{% url 'news_detail_page' i.pk %}">{{ i.title | truncatewords:7 }}</a></h4>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Trending Area End -->
+    <!--   Weekly-News start -->
+    <div class="weekly-news-area pt-50">
+        <div class="container">
+           <div class="weekly-wrapper">
+                <!-- section Tittle -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-tittle mb-30">
+                            <h3>Weekly Top News</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="weekly-news-active dot-style">
+                            {% for news in featured_news %}
+                            <div class="weekly-single {% if forloop.counter == 2 %}active{% endif %}">
+                                <div class="weekly-img" style="height: 350px; overflow: hidden; border-radius: 8px;">
+                                    <img src="{{ news.image.url }}" alt="{{ news.title }}" style="width: 100%; height: 100%; object-fit: cover; image-rendering: -webkit-optimize-contrast;">
+                                </div>
+                                <div class="weekly-caption">
+                                    <span class="color1">{{ news.category.name }}</span>
+                                    <h4><a href="{% url 'news_detail_page' news.pk %}">{{ news.title }}</a></h4>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+           </div>
+        </div>
+    </div>           
+    <!-- End Weekly-News -->
+   <!-- Whats New Start -->
+    <section class="whats-news-area pt-50 pb-20">
+        <div class="container">
+            <div class="row">
+            <div class="col-lg-8">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-lg-3 col-md-3">
+                        <div class="section-tittle mb-30">
+                            <h3>Whats New</h3>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-9">
+                        <div class="properties__button">
+                            <!--Nav Button  -->                                            
+                            <nav>                                                                     
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active" id="nav-all-tab" data-toggle="tab" href="#nav-all" role="tab" aria-controls="nav-all" aria-selected="true">Barchasi</a>
+                                    {% for category in categories %}
+                                    <a class="nav-item nav-link" id="nav-{{ category.id }}-tab" data-toggle="tab" href="#nav-{{ category.id }}" role="tab" aria-controls="nav-{{ category.id }}" aria-selected="false">{{ category.name }}</a>
+                                    {% endfor %}
+                                </div>
+                            </nav>
+                            <!--End Nav Button  -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Nav Card -->
+                        <div class="tab-content" id="nav-tabContent">
+                            <!-- All News -->
+                            <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">           
+                                <div class="whats-news-caption">
+                                    <div class="row">
+                                        {% for news in latest_news|slice:":4" %}
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="single-what-news mb-40">
+                                                <div class="what-img" style="height: 250px; overflow: hidden; border-radius: 6px;">
+                                                    <img src="{{ news.image.url }}" alt="{{ news.title }}" style="width: 100%; height: 100%; object-fit: cover; image-rendering: -webkit-optimize-contrast;">
+                                                </div>
+                                                <div class="what-cap">
+                                                    <span class="color1">{{ news.category.name }}</span>
+                                                    <h4 style="font-size: 18px; line-height: 1.4;"><a href="{% url 'news_detail_page' news.pk %}">{{ news.title }}</a></h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Category Specific News -->
+                            {% for category in categories %}
+                            <div class="tab-pane fade" id="nav-{{ category.id }}" role="tabpanel" aria-labelledby="nav-{{ category.id }}-tab">
+                                <div class="whats-news-caption">
+                                    <div class="row">
+                                        {% for news in category.news_set.all|slice:":4" %}
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="single-what-news mb-40">
+                                                <div class="what-img" style="height: 250px; overflow: hidden; border-radius: 6px;">
+                                                    <img src="{{ news.image.url }}" alt="{{ news.title }}" style="width: 100%; height: 100%; object-fit: cover; image-rendering: -webkit-optimize-contrast;">
+                                                </div>
+                                                <div class="what-cap">
+                                                    <span class="color1">{{ category.name }}</span>
+                                                    <h4 style="font-size: 18px; line-height: 1.4;"><a href="{% url 'news_detail_page' news.pk %}">{{ news.title }}</a></h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% empty %}
+                                        <div class="col-12"><p>Bu ruknda hali yangiliklar yo'q.</p></div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    <!-- End Nav Card -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <!-- Section Tittle -->
+                <div class="section-tittle mb-40">
+                    <h3>Follow Us</h3>
+                </div>
+                <!-- Flow Socail -->
+                <div class="single-follow mb-45">
+                    <div class="single-box">
+                        <div class="follow-us d-flex align-items-center">
+                            <div class="follow-social">
+                                <a href="#"><img src="{% static 'assets/img/news/icon-fb.png' %}" alt=""></a>
+                            </div>
+                            <div class="follow-count">  
+                                <span>8,045</span>
+                                <p>Fans</p>
+                            </div>
+                        </div> 
+                        <div class="follow-us d-flex align-items-center">
+                            <div class="follow-social">
+                                <a href="#"><img src="{% static 'assets/img/news/icon-tw.png' %}" alt=""></a>
+                            </div>
+                            <div class="follow-count">
+                                <span>8,045</span>
+                                <p>Fans</p>
+                            </div>
+                        </div>
+                            <div class="follow-us d-flex align-items-center">
+                            <div class="follow-social">
+                                <a href="#"><img src="{% static 'assets/img/news/icon-ins.png' %}" alt=""></a>
+                            </div>
+                            <div class="follow-count">
+                                <span>8,045</span>
+                                <p>Fans</p>
+                            </div>
+                        </div>
+                        <div class="follow-us d-flex align-items-center">
+                            <div class="follow-social">
+                                <a href="#"><img src="{% static 'assets/img/news/icon-yo.png' %}" alt=""></a>
+                            </div>
+                            <div class="follow-count">
+                                <span>8,045</span>
+                                <p>Fans</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- New Poster -->
+                <div class="news-poster d-none d-lg-block">
+                    <img src="{% static 'assets/img/news/news_card.jpg' %}" alt="">
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+    <!-- Whats New End -->
+    <!--   Weekly2-News start -->
+    <div class="weekly2-news-area  weekly2-pading gray-bg">
+        <div class="container">
+            <div class="weekly2-wrapper">
+                <!-- section Tittle -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-tittle mb-30">
+                            <h3>Weekly Top News</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="weekly2-news-active dot-style">
+                            <div class="weekly2-single">
+                                <div class="weekly2-img">
+                                    <img src="{% static 'assets/img/news/weekly2News1.jpg' %}" alt="">
+                                </div>
+                                <div class="weekly2-caption">
+                                    <span class="color1">Corporate</span>
+                                    <p>25 Jan 2020</p>
+                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
+                                </div>
+                            </div> 
+                            <div class="weekly2-single">
+                                <div class="weekly2-img">
+                                    <img src="{% static 'assets/img/news/weekly2News2.jpg' %}" alt="">
+                                </div>
+                                <div class="weekly2-caption">
+                                    <span class="color1">Event night</span>
+                                    <p>25 Jan 2020</p>
+                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
+                                </div>
+                            </div> 
+                            <div class="weekly2-single">
+                                <div class="weekly2-img">
+                                    <img src="{% static 'assets/img/news/weekly2News3.jpg' %}" alt="">
+                                </div>
+                                <div class="weekly2-caption">
+                                    <span class="color1">Corporate</span>
+                                    <p>25 Jan 2020</p>
+                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
+                                </div>
+                            </div>
+                             <div class="weekly2-single">
+                                <div class="weekly2-img">
+                                    <img src="{% static 'assets/img/news/weekly2News4.jpg' %}" alt="">
+                                </div>
+                                <div class="weekly2-caption">
+                                    <span class="color1">Event time</span>
+                                    <p>25 Jan 2020</p>
+                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
+                                </div>
+                            </div> 
+                             <div class="weekly2-single">
+                                <div class="weekly2-img">
+                                    <img src="{% static 'assets/img/news/weekly2News4.jpg' %}" alt="">
+                                </div>
+                                <div class="weekly2-caption">
+                                    <span class="color1">Corporate</span>
+                                    <p>25 Jan 2020</p>
+                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>           
+    <!-- End Weekly-News -->
+    <!-- Start Youtube -->
+    <div class="youtube-area video-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="video-items-active">
+                        <div class="video-items text-center">
+                            <iframe src="https://www.youtube.com/embed/CicQIuG8hBo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-items text-center">
+                            <iframe  src="https://www.youtube.com/embed/rIz00N40bag" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-items text-center">
+                            <iframe src="https://www.youtube.com/embed/CONfhrASy44" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                        </div>
+                        <div class="video-items text-center">
+                            <iframe src="https://www.youtube.com/embed/lq6fL2ROWf8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                         
+                        </div>
+                        <div class="video-items text-center">
+                            <iframe src="https://www.youtube.com/embed/0VxlQlacWV4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video-info">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="video-caption">
+                            <div class="top-caption">
+                                <span class="color1">Politics</span>
+                            </div>
+                            <div class="bottom-caption">
+                                <h2>Welcome To The Best Model Winner Contest At Look of the year</h2>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod ipsum dolor sit. Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod ipsum dolor sit. Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod ipsum dolor sit lorem ipsum dolor sit.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="testmonial-nav text-center">
+                            <div class="single-video">
+                                <iframe  src="https://www.youtube.com/embed/CicQIuG8hBo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <div class="video-intro">
+                                    <h4>Welcotme To The Best Model Winner Contest</h4>
+                                </div>
+                            </div>
+                            <div class="single-video">
+                                <iframe  src="https://www.youtube.com/embed/rIz00N40bag" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <div class="video-intro">
+                                    <h4>Welcotme To The Best Model Winner Contest</h4>
+                                </div>
+                            </div>
+                            <div class="single-video">
+                                <iframe src="https://www.youtube.com/embed/CONfhrASy44" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <div class="video-intro">
+                                    <h4>Welcotme To The Best Model Winner Contest</h4>
+                                </div>
+                            </div>
+                            <div class="single-video">
+                                <iframe src="https://www.youtube.com/embed/lq6fL2ROWf8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <div class="video-intro">
+                                    <h4>Welcotme To The Best Model Winner Contest</h4>
+                                </div>
+                            </div>
+                            <div class="single-video">
+                                <iframe src="https://www.youtube.com/embed/0VxlQlacWV4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <div class="video-intro">
+                                    <h4>Welcotme To The Best Model Winner Contest</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <!-- End Start youtube -->
+    <!--  Recent Articles start -->
+    <div class="recent-articles">
+        <div class="container">
+           <div class="recent-wrapper">
+                <!-- section Tittle -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-tittle mb-30">
+                            <h3>Recent Articles</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="recent-active dot-style">
+                            {% for news in news_list %}
+                            <div class="single-recent mb-100">
+                                <div class="what-img">
+                                    <img src="{{ news.image.url }}" alt="" style="width: 100%; height: 260px; object-fit: cover; border-radius: 6px;">
+                                </div>
+                                <div class="what-cap">
+                                    <span class="color1">{{ news.category.name }}</span>
+                                    <h4><a href="{% url 'news_detail_page' news.pk %}">{{ news.title }}</a></h4>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+           </div>
+        </div>
+    </div>           
+    <!--Recent Articles End -->
+    <!--Recent Articles End -->
+    <!--Start pagination -->
+    <div class="pagination-area pb-45 text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="single-wrap d-flex justify-content-center">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-start">
+                              <li class="page-item"><a class="page-link" href="#"><span class="flaticon-arrow roted"></span></a></li>
+                                <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                                <li class="page-item"><a class="page-link" href="#">02</a></li>
+                                <li class="page-item"><a class="page-link" href="#">03</a></li>
+                              <li class="page-item"><a class="page-link" href="#"><span class="flaticon-arrow right-arrow"></span></a></li>
+                            </ul>
+                          </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End pagination  -->
+    </main>
+{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+<script>
+    $(document).ready(function(){
+        $('.trending-top-active').slick({
+            dots: false,
+            infinite: true,
+            speed: 800,
+            arrows: false,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            fade: true,
+            cssEase: 'linear'
+        });
+    });
+</script>
+{% endblock %}
