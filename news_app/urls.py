@@ -13,6 +13,8 @@ urlpatterns = [
     path('contact',ContactView.as_view(),name='contact_page'),
     path('category',category,name='category_page'),
     path('latest',latest_news,name='latest_news_page'),
-    
+    path('news/create/',News_create_view.as_view(),name='news_create_page'),
+    path('news/edit/<slug>/',News_update_view.as_view(),name='news_update_page'),
+    path('news/delete/<slug>/',News_delete_view.as_view(),name='news_delete_page'),
 
 ]

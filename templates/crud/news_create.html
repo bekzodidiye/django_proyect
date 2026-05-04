@@ -1,0 +1,173 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="news-crud-area">
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="crud-card shadow-lg border-0 rounded-lg">
+                    <div class="card-header bg-white border-0 pt-4 pb-0 text-center">
+                        <h2 class="display-5 fw-bold text-dark mb-0">Yangi xabar yaratish</h2>
+                        <div class="header-line mx-auto mt-2"></div>
+                    </div>
+                    <div class="card-body p-5">
+                        <form action="" method="post" enctype="multipart/form-data" class="modern-form">
+                            {% csrf_token %}
+                            <div class="row g-4">
+                                <!-- Sarlavha -->
+                                <div class="col-md-12 mb-4">
+                                    <label class="form-label-custom">Xabar sarlavhasi</label>
+                                    {{ form.title }}
+                                    {% if form.title.errors %}<div class="text-danger">{{ form.title.errors }}</div>{% endif %}
+                                </div>
+
+                                <!-- Slug -->
+                                <div class="col-md-12 mb-4">
+                                    <label class="form-label-custom">Slug (URL manzili)</label>
+                                    {{ form.slug }}
+                                    {% if form.slug.errors %}<div class="text-danger">{{ form.slug.errors }}</div>{% endif %}
+                                </div>
+
+                                <!-- Kategoriya va Status -->
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label-custom">Kategoriya</label>
+                                    {{ form.category }}
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label-custom">Holati</label>
+                                    {{ form.status }}
+                                </div>
+
+                                <!-- Rasm yuklash -->
+                                <div class="col-md-12 mb-4">
+                                    <div class="upload-container text-center p-4 border-2 border-dashed rounded-3">
+                                        <i class="ti-image mb-2 d-block text-muted" style="font-size: 40px;"></i>
+                                        <label class="form-label text-muted d-block mb-2">Asosiy rasmni tanlang</label>
+                                        {{ form.image }}
+                                    </div>
+                                </div>
+
+                                <!-- Matn -->
+                                <div class="col-md-12 mb-4">
+                                    <label class="form-label-custom">To'liq matn</label>
+                                    {{ form.body }}
+                                    {% if form.body.errors %}<div class="text-danger">{{ form.body.errors }}</div>{% endif %}
+                                </div>
+
+                                <!-- Tugmalar -->
+                                <div class="col-12 mt-4 text-center">
+                                    <button type="submit" class="btn btn-primary-custom px-5 py-3">
+                                        <i class="ti-save mr-2"></i> Saqlash va Chop etish
+                                    </button>
+                                    <a href="{% url 'all_news_list' %}" class="btn btn-outline-custom px-5 py-3 ml-2">
+                                        Bekor qilish
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+    :root {
+        --primary-color: #ff214f;
+        --secondary-color: #10285d;
+        --soft-bg: #f7f9fb;
+    }
+
+    .crud-card { background: #ffffff; border-radius: 20px; overflow: hidden; }
+    .header-line { width: 60px; height: 4px; background: var(--primary-color); border-radius: 2px; }
+    
+    .form-label-custom {
+        display: block;
+        font-weight: 600;
+        color: var(--secondary-color);
+        margin-bottom: 10px;
+        font-size: 0.95rem;
+    }
+
+    /* Django renders inputs here */
+    input[type="text"], input[type="file"], select, textarea {
+        width: 100% !important;
+        padding: 15px 20px !important;
+        border: 1px solid #e1e9f1 !important;
+        border-radius: 12px !important;
+        background: var(--soft-bg) !important;
+        transition: all 0.3s ease !important;
+        font-family: inherit;
+    }
+
+    input:focus, select:focus, textarea:focus {
+        border-color: var(--primary-color) !important;
+        background: #fff !important;
+        box-shadow: 0 0 0 4px rgba(255, 33, 79, 0.1) !important;
+        outline: none !important;
+    }
+
+    textarea { height: 250px !important; }
+
+    /* Ichkarida turgandek (inset) Scrollbar style */
+    textarea::-webkit-scrollbar {
+        width: 12px;
+    }
+    textarea::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    textarea::-webkit-scrollbar-thumb {
+        background: #ced4da;
+        border: 4px solid rgba(0, 0, 0, 0); /* Bu joy thumb va chekka orasidagi masofani beradi */
+        background-clip: padding-box;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+    textarea::-webkit-scrollbar-thumb:hover {
+        background: var(--primary-color);
+        background-clip: padding-box;
+    }
+
+    .upload-container { border: 2px dashed #e1e9f1; background: var(--soft-bg); transition: all 0.3s ease; }
+    .upload-container:hover { border-color: var(--primary-color); background: #fff; }
+
+    .btn-primary-custom {
+        background: var(--primary-color); color: #fff; border: none; border-radius: 12px;
+        font-weight: 700; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease;
+    }
+    .btn-primary-custom:hover { background: var(--secondary-color); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    
+    .btn-outline-custom {
+        border: 2px solid #e1e9f1;
+        background: #f8f9fa;
+        color: #6c757d;
+        border-radius: 12px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-outline-custom:hover {
+        background: var(--primary-color) !important;
+        color: #fff !important;
+        border-color: var(--primary-color) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 33, 79, 0.2);
+    }
+
+    /* Django file field label textlarini yashirish */
+    .upload-container {
+        font-size: 0;
+    }
+    .upload-container input, .upload-container label, .upload-container i {
+        font-size: initial;
+    }
+    .upload-container a {
+        display: none;
+    }
+</style>
+{% endblock %}

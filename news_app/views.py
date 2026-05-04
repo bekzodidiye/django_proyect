@@ -1,9 +1,10 @@
+from django.views.generic import UpdateView
 from django.shortcuts import render,get_object_or_404,redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from .models import *
 from .forms import *
-from django.views.generic import TemplateView
-from django.views.generic import ListView
+from django.views.generic import TemplateView,UpdateView,ListView,DeleteView,CreateView
+
 
 # def news_list(request):
 #     featured_news = News.objects.filter(is_featured=True)
@@ -90,3 +91,21 @@ def category(request):
 def latest_news(request):
     context = {}
     return render(request,'news/latest_news.html',context)
+
+
+class News_update_view(UpdateView):
+    model = News
+    fields = ['title', 'slug', 'body', 'image', 'category', 'status']
+    template_name = 'crud/news_edit.html'
+
+class News_create_view(CreateView):
+    model = News
+    fields = ['title', 'slug', 'body', 'image', 'category', 'status']
+    template_name = 'crud/news_create.html'
+    
+
+class News_delete_view(DeleteView):
+    model = News
+    template_name = 'crud/news_delete.html'
+    success_url = reverse_lazy('all_news_list')
+
