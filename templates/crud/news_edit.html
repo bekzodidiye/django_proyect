@@ -74,7 +74,7 @@
                                     <button type="submit" class="btn btn-primary-custom px-5 py-3">
                                         <i class="ti-check mr-2"></i> O'zgarishlarni saqlash
                                     </button>
-                                    <a href="{% url 'all_news_list' %}" class="btn btn-outline-custom px-5 py-3 ml-2">
+                                    <a href="{{ news.get_absolute_url }}" class="btn btn-outline-custom px-5 py-3 ml-2">
                                         Bekor qilish
                                     </a>
                                 </div>

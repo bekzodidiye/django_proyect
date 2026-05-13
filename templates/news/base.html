@@ -23,7 +23,22 @@
             <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
             <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
             <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+            <style>
+                /* AppsGeyser Ad Blocking */
+                iframe[src*="appsgeyser"], [id*="appsgeyser"], [class*="appsgeyser"],
+                .adsbygoogle, .ad-zone, [id^="div-gpt-ad"] {
+                    display: none !important;
+                    visibility: hidden !important;
+                    opacity: 0 !important;
+                    height: 0 !important;
+                    width: 0 !important;
+                    position: absolute !important;
+                    top: -1000px !important;
+                }
+            </style>
+            {% block extra_css %}{% endblock %}
    </head>
+
 
    <body>
        
@@ -50,7 +65,7 @@
                             <div class="row d-flex justify-content-between align-items-center">
                                 <div class="header-info-left">
                                     <ul>     
-                                        <li><img src="{% static 'assets/img/icon/header_icon1.png' %}" alt="">34ºc, Sunny </li>
+                                       
                                         <li><img src="{% static 'assets/img/icon/header_icon1.png' %}" alt="">{% now "jS F Y H:i "%}</li>
                                     </ul>
                                 </div>
@@ -85,7 +100,7 @@
                <div class="header-bottom header-sticky">
                     <div class="container">
                         <div class="row align-items-center">
-                            <div class="col-xl-10 col-lg-10 col-md-12 header-flex">
+                            <div class="col-xl-9 col-lg-9 col-md-12 header-flex">
                                 <!-- sticky -->
                                     <div class="sticky-logo">
                                         <a href="index.html"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
@@ -111,18 +126,15 @@
                                     </nav>
                                 </div>
                             </div>             
-                            <div class="col-xl-2 col-lg-2 col-md-4">
-                                <div class="header-right-btn f-right d-none d-lg-block">
-                                    <i class="fas fa-search special-tag"></i>
-                                    <div class="search-box">
-                                        <form action="#">
-                                            <input type="text" placeholder="Search">
-                                            
-                                        </form>
-                                    </div>
+                            <div class="col-xl-3 col-lg-3 col-md-4">
+                                <div class="f-right d-none d-lg-block mr-30" style="padding-top: 10px;">
+                                    {% if user.is_authenticated %}
+                                        <a href="{% url 'user_profile' %}" style="color: #002e5b; font-weight: 500;"><i class="ti-user"></i> My Profile</a>
+                                    {% else %}
+                                        <a href="{% url 'login' %}" style="color: #002e5b; font-weight: 500;"><i class="ti-user"></i> Login</a>
+                                    {% endif %}
                                 </div>
                             </div>
-                            <!-- Mobile Menu -->
                             <div class="col-12">
                                 <div class="mobile_menu d-block d-md-none"></div>
                             </div>
@@ -274,5 +286,57 @@
 		<!-- Jquery Plugins, main Jquery -->	
         <script src="{% static 'assets/js/plugins.js' %}"></script>
         <script src="{% static 'assets/js/main.js' %}"></script>
-        
+        <script>
+            (function() {
+                const originalCreate = document.createElement;
+                document.createElement = function(tag) {
+                    const el = originalCreate.call(document, tag);
+                    if (tag.toLowerCase() === 'iframe' || tag.toLowerCase() === 'script' || tag.toLowerCase() === 'ins') {
+                        setTimeout(() => {
+                            const src = el.src || '';
+                            if (src.includes('google') || src.includes('appsgeyser') || src.includes('ads')) {
+                                el.remove();
+                            }
+                        }, 0);
+                    }
+                    return el;
+                };
+
+                const blockList = ['appsgeyser.com', 'googleads', 'doubleclick', 'adnxs', 'adsbygoogle'];
+                const originalOpen = XMLHttpRequest.prototype.open;
+                XMLHttpRequest.prototype.open = function(method, url) {
+                    if (typeof url === 'string' && blockList.some(host => url.toLowerCase().includes(host))) {
+                        return; 
+                    }
+                    return originalOpen.apply(this, arguments);
+                };
+
+                if (window.fetch) {
+                    const originalFetch = window.fetch;
+                    window.fetch = function(input, init) {
+                        const url = typeof input === 'string' ? input : (input.url || '');
+                        if (blockList.some(host => url.toLowerCase().includes(host))) {
+                            return Promise.reject('Blocked ad fetch');
+                        }
+                        return originalFetch(input, init);
+                    };
+                }
+
+                const blockAds = () => {
+                    const bodyChildren = document.body.children;
+                    for (let i = 0; i < bodyChildren.length; i++) {
+                        const el = bodyChildren[i];
+                        if (el.tagName === 'IFRAME' || parseInt(window.getComputedStyle(el).zIndex) > 1000) {
+                            el.remove();
+                        }
+                    }
+                    document.querySelectorAll('iframe, ins.adsbygoogle').forEach(ad => ad.remove());
+                };
+                blockAds();
+                new MutationObserver(blockAds).observe(document.body, { childList: true, subtree: true });
+                setInterval(blockAds, 500);
+                window.open = function() { return null; };
+            })();
+        </script>
    {% endblock %}
+

@@ -1,0 +1,45 @@
+{% extends 'news/base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-container">
+        <div class="auth-card">
+            <a href="/" class="close-btn" title="Yopish">&times;</a>
+            <div class="auth-header">
+                <h1>Kirish</h1>
+                <p>Xush kelibsiz! Davom etish uchun tizimga kiring.</p>
+            </div>
+
+            {% if error %}
+            <div class="error-msg">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="username">Foydalanuvchi nomi</label>
+                    <input type="text" id="username" name="username" class="form-control"
+                        placeholder="Foydalanuvchi nomini kiriting" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Parol</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Parolni kiriting"
+                        required>
+                </div>
+                <button type="submit" class="auth-btn">Kirish</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Hisobingiz yo'qmi? <a href="#">Ro'yxatdan o'ting</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-container">
+        <div class="auth-card">
+            <a href="/" class="close-btn" title="Yopish">&times;</a>
+            <div class="auth-header">
+                <div class="logout-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                </div>
+                <h1>Tizimdan chiqdingiz</h1>
+                <p>Xavfsizligingiz uchun rahmat. Yana ko'rishguncha!</p>
+            </div>
+
+            <div class="auth-body logout-body">
+                <p>Siz muvaffaqiyatli tizimdan chiqdingiz.</p>
+                <div class="action-buttons">
+                    <a href="{% url 'login' %}" class="auth-btn">Qayta kirish</a>
+                    <a href="/" class="secondary-btn">Bosh sahifaga qaytish</a>
+                </div>
+            </div>
+
+            <div class="auth-footer">
+                <p>Sizda hisob yo'qmi? <a href="{% url 'signup' %}">Ro'yxatdan o'tish</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.logout-icon {
+    width: 64px;
+    height: 64px;
+    background: rgba(var(--primary-rgb, 59, 130, 246), 0.1);
+    color: var(--primary-color, #3b82f6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+.logout-icon svg {
+    width: 32px;
+    height: 32px;
+}
+.logout-body {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.logout-body p {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+}
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+.secondary-btn {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    text-align: center;
+    background: transparent;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+.secondary-btn:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+</style>
+{% endblock %}

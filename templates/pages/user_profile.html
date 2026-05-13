@@ -1,0 +1,53 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="about-details section-padding80" style="padding-top: 100px; padding-bottom: 100px;">
+        <div class="container">
+            <div class="row">
+                <div class="offset-xl-2 col-lg-8">
+                    <div class="profile-card" style="background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.08); border: 1px solid #f0f0f0;">
+                        <div class="section-tittle mb-40">
+                            <h2 style="font-size: 28px; font-weight: 800; color: #141b22; position: relative; padding-bottom: 15px;">
+                                Shaxsiy Profil
+                                <span style="position: absolute; bottom: 0; left: 0; width: 60px; height: 4px; background: #ff2143; border-radius: 2px;"></span>
+                            </h2>
+                        </div>
+                        
+                        <div class="d-flex align-items-center mb-40">
+                            <div class="avatar" style="width: 80px; height: 80px; background: #002e5b; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 700; margin-right: 25px; box-shadow: 0 8px 20px rgba(0, 46, 91, 0.2);">
+                                {{ user.username|first|upper }}
+                            </div>
+                            <div>
+                                <h3 style="margin: 0; font-size: 24px; font-weight: 700; color: #141b22;">{{ user.username }}</h3>
+                                <p style="margin: 0; color: #635c5c; font-size: 16px;">{{ user.email|default:"Email ko'rsatilmagan" }}</p>
+                            </div>
+                        </div>
+
+                        <div class="profile-details mb-40" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                            <div class="info-item" style="background: #fcfcfc; padding: 18px 25px; border-radius: 12px; border: 1px solid #f5f5f5;">
+                                <span style="display: block; font-size: 12px; color: #8e8e8e; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; margin-bottom: 5px;">Ism</span>
+                                <span style="font-size: 17px; font-weight: 600; color: #141b22;">{{ user.first_name|default:"—" }}</span>
+                            </div>
+                            <div class="info-item" style="background: #fcfcfc; padding: 18px 25px; border-radius: 12px; border: 1px solid #f5f5f5;">
+                                <span style="display: block; font-size: 12px; color: #8e8e8e; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; margin-bottom: 5px;">Familiya</span>
+                                <span style="font-size: 17px; font-weight: 600; color: #141b22;">{{ user.last_name|default:"—" }}</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-actions d-flex flex-wrap" style="gap: 15px;">
+                            <a href="{% url 'password_change' %}" class="btn" style="background: #002e5b; color: #fff; border-radius: 30px; padding: 18px 45px; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; border: none; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 46, 91, 0.15);">
+                                Parolni Yangilash
+                            </a>
+                            <a href="{% url 'logout' %}" class="btn" style="background: #ff2143; color: #fff; border-radius: 30px; padding: 18px 45px; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; border: none; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(255, 33, 67, 0.15);">
+                                Tizimdan Chiqish
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -97,11 +97,14 @@ class News_update_view(UpdateView):
     model = News
     fields = ['title', 'slug', 'body', 'image', 'category', 'status']
     template_name = 'crud/news_edit.html'
+    success_url = reverse_lazy('all_news_list')
 
 class News_create_view(CreateView):
     model = News
+    # prepopulated_fields = {'slug':('title',)}
     fields = ['title', 'slug', 'body', 'image', 'category', 'status']
     template_name = 'crud/news_create.html'
+    success_url = reverse_lazy('all_news_list')
     
 
 class News_delete_view(DeleteView):

@@ -41,7 +41,7 @@ class News(models.Model):
 
     def __str__(self):
         return self.title
-    def get_obsolute_url(self):
+    def get_absolute_url(self):
         return reverse("news_detail_page",args=[self.slug])
 
 class Contact(models.Model):

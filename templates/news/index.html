@@ -25,17 +25,25 @@
                 <!-- Trending Tittle -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="trending-tittle">
-                            <strong>Trending now</strong>
-                            <!-- <p>Rem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
-                            <div class="trending-animated">
-                                <ul id="js-news" class="js-hidden">
-                                    {% for news in latest_news|slice:":5" %}
-                                    <li class="news-item">{{ news.title }}</li>
-                                    {% endfor %}
-                                </ul>
+                        <div class="trending-tittle" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div style="display: flex; align-items: center;">
+                                <strong>Trending now</strong>
+                                <div class="trending-animated">
+                                    <ul id="js-news" class="js-hidden">
+                                        {% for news in latest_news|slice:":5" %}
+                                        <li class="news-item">{{ news.title }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
                             </div>
-                            
+                            <div class="ticker-search-wrap" style="margin-right: 15px;">
+                                <form action="#" style="display: flex; align-items: center; border-bottom: 1px solid #ccc; padding-bottom: 2px;">
+                                    <input type="text" placeholder="Qidiruv..." style="border: none; outline: none; background: transparent; font-size: 14px; width: 140px; color: #141b22;">
+                                    <button type="button" style="background: none; border: none; cursor: pointer; color: #141b22; padding-left: 10px;">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -108,7 +116,7 @@
                                     <img src="{{ news.image.url }}" alt="{{ news.title }}">
                                     <div class="trend-top-cap">
                                         <span>{{ news.category.name }}</span>
-                                        <h2><a href="{{ news.get_obsolute_url }}" style="color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">{{ news.title }}</a></h2>
+                                        <h2><a href="{{ news.get_absolute_url }}" style="color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">{{ news.title }}</a></h2>
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +133,7 @@
                                     </div>
                                     <div class="trend-bottom-cap">
                                         <span class="color1">{{ news.category.name }}</span>
-                                        <h4 style="font-size: 16px; margin-top: 10px;"><a href="{% url 'news_detail_page' news.pk %}">{{ news.title | truncatewords:10 }}</a></h4>
+                                        <h4 style="font-size: 16px; margin-top: 10px;"><a href="{{ news.get_absolute_url }}">{{ news.title|truncatewords:10 }}</a></h4>
                                     </div>
                                 </div>
                                 </div>
@@ -138,7 +146,7 @@
                                     </div>
                                     <div class="trend-bottom-cap">
                                         <span class="color1">{{ news.category.name }}</span>
-                                        <h4 style="font-size: 16px; margin-top: 10px;"><a href="{% url 'news_detail_page' news.pk %}">{{ news.title | truncatewords:10 }}</a></h4>
+                                        <h4 style="font-size: 16px; margin-top: 10px;"><a href="{{ news.get_absolute_url }}">{{ news.title|truncatewords:10 }}</a></h4>
                                     </div>
                                 </div>
                                 </div>
@@ -151,7 +159,7 @@
                                     </div>
                                     <div class="trend-bottom-cap">
                                         <span class="color1">{{ news.category.name }}</span>
-                                        <h4 style="font-size: 16px; margin-top: 10px;"><a href="{% url 'news_detail_page' news.pk %}">{{ news.title | truncatewords:10 }}</a></h4>
+                                        <h4 style="font-size: 16px; margin-top: 10px;"><a href="{{ news.get_absolute_url }}">{{ news.title|truncatewords:10 }}</a></h4>
                                     </div>
                                 </div>
                                 </div>
@@ -202,7 +210,7 @@
                             </div>
                             <div class="trand-right-cap">
                                 <span class="color1">{{ i.category.name }}</span>
-                                <h4 style="font-size: 15px;"><a href="{% url 'news_detail_page' i.pk %}">{{ i.title | truncatewords:7 }}</a></h4>
+                                <h4 style="font-size: 15px;"><a href="{{ i.get_absolute_url }}">{{ i.title|truncatewords:7 }}</a></h4>
                             </div>
                         </div>
                         {% endfor %}
@@ -235,7 +243,7 @@
                                 </div>
                                 <div class="weekly-caption">
                                     <span class="color1">{{ news.category.name }}</span>
-                                    <h4><a href="{% url 'news_detail_page' news.pk %}">{{ news.title }}</a></h4>
+                                    <h4><a href="{{ news.get_absolute_url }}">{{ news.title }}</a></h4>
                                 </div>
                             </div>
                             {% endfor %}
@@ -288,7 +296,7 @@
                                                 </div>
                                                 <div class="what-cap">
                                                     <span class="color1">{{ news.category.name }}</span>
-                                                    <h4 style="font-size: 18px; line-height: 1.4;"><a href="{% url 'news_detail_page' news.pk %}">{{ news.title }}</a></h4>
+                                                    <h4 style="font-size: 18px; line-height: 1.4;"><a href="{{ news.get_absolute_url }}">{{ news.title }}</a></h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -310,7 +318,7 @@
                                                 </div>
                                                 <div class="what-cap">
                                                     <span class="color1">{{ category.name }}</span>
-                                                    <h4 style="font-size: 18px; line-height: 1.4;"><a href="{% url 'news_detail_page' news.pk %}">{{ news.title }}</a></h4>
+                                                    <h4 style="font-size: 18px; line-height: 1.4;"><a href="{{ news.get_absolute_url }}">{{ news.title }}</a></h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -553,7 +561,7 @@
                                 </div>
                                 <div class="what-cap">
                                     <span class="color1">{{ news.category.name }}</span>
-                                    <h4><a href="{% url 'news_detail_page' news.pk %}">{{ news.title }}</a></h4>
+                                    <h4><a href="{{ news.get_absolute_url }}">{{ news.title }}</a></h4>
                                 </div>
                             </div>
                             {% endfor %}
