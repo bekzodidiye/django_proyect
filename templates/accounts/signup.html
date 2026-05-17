@@ -25,9 +25,19 @@
                 {% csrf_token %}
 
                 <div class="form-group">
-                    <label for="username">Foydalanuvchi nomi</label>
+                    <label for="username"> Username</label>
                     <input type="text" id="username" name="username" class="form-control" 
                         placeholder="Foydalanuvchi nomi" required>
+                </div>
+                <div class="form-group">
+                    <label for="username"> Ism </label>
+                    <input type="text" id="username" name="first_name" class="form-control" 
+                        placeholder="Foydalanuvchi ismi" required>
+                </div>
+                <div class="form-group">
+                    <label for="username"> Familiya</label>
+                    <input type="text" id="username" name="last_name" class="form-control" 
+                        placeholder="Foydalanuvchi familiyasi" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email manzil</label>

@@ -129,3 +129,6 @@ STATICFILES_FINDERS = [
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 LOGIN_REDIRECT_URL = 'all_news_list'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
